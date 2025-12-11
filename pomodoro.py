@@ -39,7 +39,7 @@ class Timer:
 
                 #Play a noise (C major chord)
                 for freq in c_major:
-                    winsound.Beep(freq, 200)
+                    winsound.Beep(freq, 250)
                 #delay
                 time.sleep(self.rest_time * 60)
 
@@ -47,8 +47,8 @@ class Timer:
                 print(f"[{self.timestamp()}] Break timer completed. GET BACK TO WORK!")
                 #Play a noise (A minor chord)
                 for freq in a_minor:
-                    winsound.Beep(freq, 200)  
-                    
+                    winsound.Beep(freq, 250)  
+
                 if i != self.cycles - 1:          
                     print(f"[{self.timestamp()}] {self.cycles - i - 1} more cycles until a {self.long_break} minute break")
 
@@ -76,7 +76,8 @@ def absint_input(prompt, default):
 
 def main():
     print("=================================================")
-    print("\tWelcome to Lock-In: the Pomodoro timer\n")
+    print("Welcome to Lock-In: a Pomodoro timer\n")
+    print("Written by Ben Smart")
 
     work_time = absint_input("How many minutes per hour would you like to work (default 50)? ", 50)
     #Clamp value between 1 and 60
@@ -93,8 +94,12 @@ def main():
     print(f"You will work for {timer.work_time:.2f} minutes at a time, followed by a {timer.rest_time:.2f} minute break")
     print(f"After {cycles} cycles you'll take a {timer.long_break} minute break")
 
-    input("Press enter to start")
-    timer.start()
+
+    input("Press enter to start, press Ctrl+C to stop")
+    try:
+        timer.start()
+    except KeyboardInterrupt:
+        print("Thanks for using Lock-in, Have a great day!")
 
 if __name__ == '__main__':
     main()
